@@ -4,6 +4,7 @@
     <span *ngIf="musica.artistas.length == 1"><i class="text-muted fas fa-user"></i></span>
     <span *ngIf="musica.artistas.length != 1"><i class="text-muted fas fa-users"></i></span>
     &nbsp;
+
     <span *ngFor="let artista of musica.artistas; last as ultimo">
       <a [routerLink]="['/artistas', artista.id]">{{ artista.nome }}</a><span *ngIf="!ultimo">, </span>
     </span>
@@ -12,5 +13,10 @@
     <i class="text-muted fas fa-tag"></i>
     &nbsp;
     {{musica.genero.nome}}
+  </div>
+  <div>
+    <button type="button" class="btn btn-outline-success" (click)="disco.gostar(musica)">Gostei {{musica.gostei}}</button>  
+    &nbsp;
+    <button type="button" class="btn btn-outline-danger" (click)="disco.naoGostar(musica)">Não Gostei {{musica.naoGostei}}</button>
   </div>
 </section>

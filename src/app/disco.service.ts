@@ -129,10 +129,42 @@ export class DiscoService {
       id: this.musicas.length + 1,
       titulo,
       idGenero: g.id,
-      artistas: listaArtistas
+      artistas: listaArtistas,
+      gostei: 0,
+      naoGostei: 0
     };
     this.musicas.push(musica);
     return musica;
+  }
+
+  gostar(musica) {
+    const m = this.encontrarMusica(musica.id)
+    console.log(m)
+    if (!m) return null
+    if (m.gostei === 0 && m.naoGostei === 0) {
+      m.gostei++
+      console.log(m)
+      return m
+    } else if (m.gostei === 0 && m.naoGostei === 1) {
+      m.naoGostei--
+      m.gostei++
+      return m
+    }
+  }
+
+  naoGostar(musica) {
+    const m = this.encontrarMusica(musica.id)
+    if (!m) return null
+    if (m.naoGostei === 0 && m.gostei === 0) {
+      m.naoGostei++
+      console.log(m)
+      return m
+    } else if (m.naoGostei === 0 && m.gostei === 1) {
+      m.naoGostei++
+      m.gostei--
+      console.log(m)
+      return m
+    }
   }
 
   /**
@@ -140,6 +172,7 @@ export class DiscoService {
    * 
    * @param id Nome ou identificador do artista
    */
+
   encontrarArtista(artista) {
     if (isNumber(artista)) {
       return this.artistas.find(a => a.id == artista);
@@ -243,4 +276,5 @@ export class DiscoService {
     }
     return this.artistas;
   }
+  
 }
